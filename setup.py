@@ -34,6 +34,7 @@ def configure_c_extension():
     cmake_command = [
         'cmake',
         '../opensfm/src',
+        '-DHAS_FLTO=OFF',
         '-DPYTHON_EXECUTABLE=' + sys.executable,
     ]
     subprocess.check_call(cmake_command, cwd='cmake_build')
@@ -69,7 +70,8 @@ setuptools.setup(
         'opensfm': [
             'csfm.*',
             'data/sensor_data.json',
-            'data/bow/bow_hahog_root_uchar.npz',
+            'data/bow/bow_hahog_root_uchar_10000.npz',
+            'data/bow/bow_hahog_root_uchar_64.npz',
         ]
     },
     # install_requires=[
