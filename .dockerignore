@@ -15,6 +15,7 @@
 !setup.cfg
 !setup.py
 !viewer
+!.git
 
 # Picking exceptions
 doc/build
