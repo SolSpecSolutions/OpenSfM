@@ -21,25 +21,27 @@ RUN echo "@edgetesting http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /et
         glog-dev@edgetesting \
         jpeg-dev \
         linux-headers \
+        lapack-dev \
         python3-dev \
         py3-pip \
         zlib-dev
 
+COPY . /tmp/opensfm
 
 RUN pip3 install -U pip && \
-    pip3 install numpy==1.16.5 \
-    exifread \
-    joblib \
-    setuptools \
-    six \
-    pillow \
-    networkx \
-    repoze.lru \
-    wheel \
-    pyproj \
-    pyyaml \
-    scipy \
-    xmltodict
+    pip3 install -r /tmp/opensfm/requirements.txt
+#    exifread \
+#    joblib \
+#    setuptools \
+#    six \
+#    pillow \
+#    networkx \
+#    repoze.lru \
+#    wheel \
+#    pyproj \
+#    pyyaml \
+#    scipy \
+#    xmltodict
 
 
 RUN mkdir /tmp/opencv \
@@ -95,8 +97,7 @@ RUN cd /tmp \
     && make -j $(nproc) install \
     && rm -rf /tmp/opengv
 
-COPY . /tmp/OpenSFM
-RUN cd /tmp/OpenSFM \
+RUN cd /tmp/opensfm \
     && ls -a . \
     && git submodule update --init --recursive \
     && python3 setup.py build \
